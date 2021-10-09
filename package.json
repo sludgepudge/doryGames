@@ -1,12 +1,12 @@
 {
-  "name": "discord-gamecord",
-  "version": "2.0.0",
-  "description": "Discord Gamecord is a powerful module that allows you to play games within Discord!",
+  "name": "dorygames",
+  "version": "1.0.0",
+  "description": "A custom fork od discord-gamecord for use with Dory",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "Aniket#0729",
+  "author": "sludge#0001",
   "license": "GPL-3.0",
   "dependencies": {
     "discord.js": "^13.1.0",
@@ -15,19 +15,12 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+ssh://git@github.com/aniket091/Gamecord.git"
+    "url": "git+ssh://git@github.com:sludgepudge/doryGames.git"
   },
-  "homepage": "https://github.com/aniket091/Gamecord#readme",
-  "keywords": [
-    "gamecord",
-    "discord-games",
-    "minigames",
-    "discord",
-    "discord.js",
-    "discord-gamecord"
-  ],
+  "homepage": "https://github.com/sludgepudge/doryGames#readme",
+  "keywords": [],
   "bugs": {
-    "url": "https://github.com/aniket091/Gamecord/issues"
+    "url": "https://github.com/sludgepudge/doryGames/issues"
   },
   "directories": {
     "src": "src"
