@@ -75,7 +75,7 @@ module.exports = class GuessThePokemon {
 		if (thinkMsg && !thinkMsg.deleted) thinkMsg.delete().catch();
 		const msg = await this.sendMessage({ embeds: [embed], files: [attachment] })
 
-		const filter = (m) => m.author.id === this.message.author.id;
+		const filter = (m) => m.member.id === this.message.member.id;
 		const collector = this.message.channel.createMessageCollector({
 			filter, 
 			time: this.options.time,

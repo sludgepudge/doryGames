@@ -89,7 +89,7 @@ module.exports = class Connect4Game {
         }
 
         if (this.opponent.bot) return this.sendMessage('You can\'t play with bots!')
-        if (this.opponent.id === this.message.author.id) return this.sendMessage('You cannot play with yourself!')
+        if (this.opponent.id === this.message.member.id) return this.sendMessage('You cannot play with yourself!')
 
         const check = await verify(this.options)
 
@@ -128,7 +128,7 @@ module.exports = class Connect4Game {
     
     GameEmbed() {
         const status = this.options.turnMessage.replace('{emoji}', this.getChip())
-        .replace('{player}', this.redTurn ? this.message.author.tag : this.opponent.tag)
+        .replace('{player}', this.redTurn ? this.message.member.displayName : this.opponent.displayName)
 
         return new MessageEmbed() 
         .setColor(this.options.embed.color)
@@ -161,12 +161,12 @@ module.exports = class Connect4Game {
 
 
         collector.on('collect', async btn => {
-            if (btn.user.id !== this.message.author.id && btn.user.id !== this.opponent.id) {
-                const authors = this.message.author.tag + 'and' + this.opponent.tag;
+            if (btn.member.id !== this.message.member.id && btn.member.id !== this.opponent.id) {
+                const authors = this.message.member.displayName + 'and' + this.opponent.displayName;
                 return btn.reply({ content: this.options.othersMessage.replace('{author}', authors),  ephemeral: true })
             }
             
-            const turn = this.redTurn ? this.message.author.id : this.opponent.id;
+            const turn = this.redTurn ? this.message.member.id : this.opponent.id;
             if (btn.user.id !== turn) {
 				return btn.reply({ content: this.options.waitMessage,  ephemeral: true })
 			}

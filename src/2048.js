@@ -105,9 +105,9 @@ module.exports = class TwoZeroFourEight {
         })
 
         collector.on('collect', async btn => {
-            if (btn.user.id !== this.message.author.id) {
+            if (btn.user.id !== this.message.member.id) {
                 if (this.options.othersMessage == 'false') return await btn.deferUpdate();
-                return btn.reply({ content: this.options.othersMessage.replace('{author}', this.message.author.tag),  ephemeral: true })
+                return btn.reply({ content: this.options.othersMessage.replace('{author}', this.message.member.displayName),  ephemeral: true })
             }
 
             await btn.deferUpdate();
