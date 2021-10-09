@@ -84,7 +84,7 @@ module.exports = class TwoZeroFourEight {
         .setTitle(this.options.embed.title)
         .setImage('attachment://gameboard.png')
         .addField(this.options.embed.curScore || 'Score', this.score.toString())
-        .setFooter(this.message.author.tag, this.message.author.displayAvatarURL({ dynamic: true }))
+        .setFooter(this.message.member.displayName, this.message.member.displayAvatarURL({ dynamic: true }))
 
         const up = new MessageButton().setEmoji(emojis.up).setStyle('PRIMARY').setCustomId('2048_up')
         const left = new MessageButton().setEmoji(emojis.left).setStyle('PRIMARY').setCustomId('2048_left')
@@ -140,7 +140,7 @@ module.exports = class TwoZeroFourEight {
                 .setTitle(this.options.embed.title)
                 .setImage('attachment://gameboard.png')
                 .addField(this.options.embed.curScore || 'Score', this.score.toString())
-                .setFooter(this.message.author.tag, this.message.author.displayAvatarURL({ dynamic: true }))
+                .setFooter(this.message.member.displayName, this.message.member.displayAvatarURL({ dynamic: true }))
 
                 msg.edit({ embeds: [editEmbed], components: msg.components, files: [this.getImage()], attachments: [] })
             }
@@ -160,7 +160,7 @@ module.exports = class TwoZeroFourEight {
         .setTitle(this.options.embed.title)
         .setImage('attachment://gameboard.png')
         .addField(overTitle, (this.options.embed.totalScore || '**Score:** ') + this.score)
-        .setFooter(this.message.author.tag, this.message.author.displayAvatarURL({ dynamic: true }))
+        .setFooter(this.message.member.displayName, this.message.member.displayAvatarURL({ dynamic: true }))
 
         msg.edit({ embeds: [editEmbed], components: disableButtons(msg.components), files: [this.getImage()], attachments: [] })
     }

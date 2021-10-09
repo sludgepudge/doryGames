@@ -135,7 +135,7 @@ module.exports = class Connect4Game {
         .setTitle(this.options.embed.title)
         .setDescription(this.getGameBoard())
         .addField(this.options.embed.statusTitle || 'Status', status)
-        .setFooter(`${this.message.author.username} vs ${this.opponent.username}`, this.message.guild.iconURL({ dynamic: true }))
+        .setFooter(`${this.message.member.displayName} vs ${this.opponent.displayName}`, this.message.guild.iconURL({ dynamic: true }))
     } 
 
 
@@ -147,7 +147,7 @@ module.exports = class Connect4Game {
         .setTitle(this.options.embed.title)
         .setDescription(this.getGameBoard())
         .addField(this.options.embed.statusTitle || 'Status', this.getResultText(result))
-        .setFooter(`${this.message.author.username} vs ${this.opponent.username}`, this.message.guild.iconURL({ dynamic: true }))
+        .setFooter(`${this.message.member.displayName} vs ${this.opponent.displayName}`, this.message.guild.iconURL({ dynamic: true }))
         
 
         return msg.edit({ embeds: [editEmbed], components: disableButtons(msg.components) });

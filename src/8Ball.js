@@ -32,7 +32,7 @@ module.exports = class EightBall {
 		.addField('Question', this.options.question, false)
 		.setThumbnail(this.options.embed.thumbnail || null)
 		.addField('Answer', answers[Math.floor(Math.random() * answers.length)], false)
-		.setFooter(this.message.author.tag, this.message.author.displayAvatarURL({ dynamic: true }))
+		.setFooter(this.message.member.displayName, this.message.member.displayAvatarURL({ dynamic: true }))
 
 
 		if (this.options.slash_command) {

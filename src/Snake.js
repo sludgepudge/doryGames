@@ -161,7 +161,7 @@ module.exports = class SnakeGame {
         .setColor(this.options.embed.color)
         .setTitle(this.options.embed.title)
         .setDescription('**Score:** ' + this.score + '\n\n' + this.getGameBoard())
-        .setFooter(this.message.author.tag, this.message.author.displayAvatarURL({ dynamic: true }))
+        .setFooter(this.message.member.displayName, this.message.member.displayAvatarURL({ dynamic: true }))
 
 
         const up = new MessageButton().setEmoji(emojis.up).setStyle('PRIMARY').setCustomId('snake_up')
@@ -195,7 +195,7 @@ module.exports = class SnakeGame {
         .setColor(this.options.embed.color)
         .setTitle(this.options.embed.title)
         .setDescription('**Score:** ' + this.score + '\n\n' + this.getGameBoard())
-        .setFooter(this.message.author.tag, this.message.author.displayAvatarURL({ dynamic: true }))
+        .setFooter(this.message.member.displayName, this.message.member.displayAvatarURL({ dynamic: true }))
 
         msg.edit({ embeds: [moveEmbed], components: msg.components }) 
     }
@@ -209,7 +209,7 @@ module.exports = class SnakeGame {
         .setColor(this.options.embed.color)
         .setTitle(this.options.embed.title)
         .setDescription(text + '\n\n' + this.getGameBoard())
-        .setFooter(this.message.author.tag, this.message.author.displayAvatarURL({ dynamic: true }))
+        .setFooter(this.message.member.displayName, this.message.member.displayAvatarURL({ dynamic: true }))
 
         return await msg.edit({ embeds: [editEmbed], components: disableButtons(msg.components) })
     }

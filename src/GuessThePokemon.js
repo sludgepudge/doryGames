@@ -69,7 +69,7 @@ module.exports = class GuessThePokemon {
 		.setFooter(this.options.embed.footer)
 		.addField('Type(s)', data.types.join(', ') || 'No data.')
 		.addField('Abilities', data.abilities.join(', ') || 'No data.')
-		.setAuthor(this.message.author.tag, this.message.author.displayAvatarURL({ dynamic: true}))
+		.setAuthor(this.message.member.displayName, this.message.member.displayAvatarURL({ dynamic: true }))
 
 
 		if (thinkMsg && !thinkMsg.deleted) thinkMsg.delete().catch();
@@ -99,7 +99,8 @@ module.exports = class GuessThePokemon {
 				.addField('Pokemon Name', data.name, false)
     		.addField('Type(s)', data.types.join(', ') || 'No data.')
     		.addField('Abilities', data.abilities.join(', ') || 'No data.')
-    		.setAuthor(this.message.author.tag, this.message.author.displayAvatarURL({ dynamic: true}))
+			.setAuthor(this.message.member.displayName, this.message.member.displayAvatarURL({ dynamic: true }))
+
 
 				return msg.edit({ content: this.options.winMessage.replace('{pokemon}', data.name), embeds: [editEmbed], files: [attachment2], attachments: [] })
 			

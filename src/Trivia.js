@@ -87,7 +87,7 @@ module.exports = class Trivia {
 		.setTitle(this.options.embed.title)
 		.setColor(this.options.embed.color)	
 		.setDescription(`**${data.question}**\n${this.options.embed.description.replace('{time}', Math.floor(this.options.time / 1000))}`)
-		.setAuthor(this.message.author.tag, this.message.author.displayAvatarURL({ dynamic: true}))
+		.setAuthor(this.message.member.displayName, this.message.member.displayAvatarURL({ dynamic: true }))
 		.addField('Difficulty', `\`${data.difficulty || 'None'}\``)
 		.addField('Category', `\`${data.category || 'None'}\``)
 

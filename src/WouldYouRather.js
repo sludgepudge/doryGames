@@ -65,7 +65,7 @@ module.exports = class Trivia {
 		.setTitle(this.options.embed.title)
 		.setColor(this.options.embed.color)
 		.setDescription(`1. ${data.option_1}\n2. ${data.option_2}`)
-		.setAuthor(this.message.author.tag, this.message.author.displayAvatarURL({ dynamic: true}))
+		.setAuthor(this.message.member.displayName, this.message.member.displayAvatarURL({ dynamic: true }))
 		.addField('\u200b', `**Title:** ${data.title}\n**Author:** ${data.author}`)
 
 		let btn1 = new MessageButton().setStyle('PRIMARY').setLabel(this.options.buttons.option1).setCustomId('1_wyr');
@@ -94,7 +94,7 @@ module.exports = class Trivia {
 			const ReplyEmbed = new MessageEmbed()
 			.setTitle(this.options.embed.title)
 			.setColor(this.options.embed.color)
-			.setAuthor(this.message.author.tag, this.message.author.displayAvatarURL({ dynamic: true}))
+			.setAuthor(this.message.member.displayName, this.message.member.displayAvatarURL({ dynamic: true }))
 			.addField('\u200b', `**Title:** ${data.title}\n**Author:** ${data.author}`)
 
 			if (btn.customId === '1_wyr') {
