@@ -85,7 +85,7 @@ module.exports = class TicTacToe {
         }
 
         if (this.opponent.bot) return this.sendMessage('You can\'t play with bots!')
-        if (this.opponent.id === this.message.author.id) return this.sendMessage('You cannot play with yourself!')
+        if (this.opponent.id === this.message.member.id) return this.sendMessage('You cannot play with yourself!')
 
         const check = await verify(this.options)
 
@@ -107,10 +107,10 @@ module.exports = class TicTacToe {
 
 
         const embed = new MessageEmbed()
-		.setTitle(`${this.message.author.username} vs. ${this.opponent.username}`)
+		.setTitle(`${this.message.member.displayName} vs. ${this.opponent.displayName}`)
         .addField(this.options.statusTitle || 'Status', this.options.turnMessage
             .replace('{emoji}', this.getChip())
-            .replace('{player}', this.xTurn ? this.message.author.tag : this.opponent.tag)
+            .replace('{player}', this.xTurn ? this.message.member.displayName : this.opponent.displayName)
         )
         .setColor(this.options.embed.color)
 
@@ -133,12 +133,12 @@ module.exports = class TicTacToe {
 
 
         collector.on('collect', async btn => {            
-            if (btn.user.id !== this.message.author.id && btn.user.id !== this.opponent.id) {
-                const authors = this.message.author.tag + 'and' + this.opponent.tag;
+            if (btn.user.id !== this.message.member.id && btn.member.id !== this.opponent.id) {
+                const authors = this.message.member.displayName + 'and' + this.opponent.displayName;
                 return btn.reply({ content: this.options.othersMessage.replace('{author}', authors),  ephemeral: true })
             }
             
-            const turn = this.xTurn ? this.message.author.id : this.opponent.id;
+            const turn = this.xTurn ? this.message.member.id : this.opponent.id;
 
 			if (btn.user.id !== turn) {
 				return btn.reply({ content: this.options.waitMessage,  ephemeral: true })
@@ -165,7 +165,7 @@ module.exports = class TicTacToe {
 				if (this.hasWon(PLAYER_2))
 				    this.gameOver({ result: 'winner', name: this.opponent.tag, emoji: this.getChip() }, msg);
 				else if (this.hasWon(PLAYER_1))
-				    this.gameOver({ result: 'winner', name: this.message.author.tag, emoji: this.getChip() }, msg)
+				    this.gameOver({ result: 'winner', name: this.message.member.displayName, emoji: this.getChip() }, msg)
 				else
  				   this.gameOver({ result: 'tie' }, msg) 
 			}
@@ -177,7 +177,7 @@ module.exports = class TicTacToe {
                 .setFields([])
                 .addField(this.options.statusTitle || 'Status', this.options.turnMessage
                     .replace('{emoji}', this.getChip())
-                    .replace('{player}', this.xTurn ? this.message.author.tag : this.opponent.tag)
+                    .replace('{player}', this.xTurn ? this.message.member.displayName : this.opponent.displayName)
                 )
 
 				msg.edit({ embeds: [replyEmbed], components: msg.components })
@@ -197,7 +197,7 @@ module.exports = class TicTacToe {
 
         const Embed = new MessageEmbed()
         .setColor(msg.embeds[0].color)
-        .setTitle(`${this.message.author.username} vs ${this.opponent.username}`)
+        .setTitle(`${this.message.member.displayName} vs ${this.opponent.displayName}`)
         .addField(this.options.embed.overTitle, this.getResultText(result))
 
 
