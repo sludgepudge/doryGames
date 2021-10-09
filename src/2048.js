@@ -21,6 +21,8 @@ module.exports = class TwoZeroFourEight {
         if (typeof options.embed.color !== 'string')  throw new TypeError('INVALID_COLOR: Embed Color must be a string.')
         if (!options.embed.overTitle) options.embed.overTitle = 'Game Over';
         if (typeof options.embed.overTitle !== 'string')  throw new TypeError('INVALID_OVER_TITLE: Over Title must be a string.')
+        if (!options.embed.timeTitle) options.embed.timeTitle = 'Ran out of time!';
+        if (typeof options.embed.timeTitle !== 'string')  throw new TypeError('INVALID_TIME_TITLE: Time Title must be a string.')
 
         
         if (!options.emojis) options.emojis = {};
@@ -147,19 +149,33 @@ module.exports = class TwoZeroFourEight {
         })
 
         collector.on('end', async(_, r) => {
-            if (r === 'idle') this.gameOver(msg)
+            if (r === 'idle') this.timesUp(msg)
         })
 
     }
 
     async gameOver(msg) {
-        const overTitle =  this.gameBoard.includes('b') ? this.options.embed.winTitle || 'Win!' : this.options.embed.overTitle;
+        const overTitle = this.gameBoard.includes('b') ? this.options.embed.winTitle || 'Win!' : this.options.embed.overTitle;
 
         const editEmbed = new MessageEmbed()
         .setColor(this.options.embed.color)
         .setTitle(this.options.embed.title)
         .setImage('attachment://gameboard.png')
         .addField(overTitle, (this.options.embed.totalScore || '**Score:** ') + this.score)
+        .setFooter(this.message.member.displayName, this.message.member.displayAvatarURL({ dynamic: true }))
+
+        msg.edit({ embeds: [editEmbed], components: disableButtons(msg.components), files: [this.getImage()], attachments: [] })
+    }
+
+
+    async timesUp(msg) {
+        const timeTitle = this.options.embed.timeTitle;
+
+        const editEmbed = new MessageEmbed()
+        .setColor(this.options.embed.color)
+        .setTitle(this.options.embed.title)
+        .setImage('attachment://gameboard.png')
+        .addField(timeTitle, (this.options.embed.totalScore || '**Score:** ') + this.score)
         .setFooter(this.message.member.displayName, this.message.member.displayAvatarURL({ dynamic: true }))
 
         msg.edit({ embeds: [editEmbed], components: disableButtons(msg.components), files: [this.getImage()], attachments: [] })
