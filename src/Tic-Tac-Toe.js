@@ -163,7 +163,7 @@ module.exports = class TicTacToe {
 
 			if (this.isGameOver()) {
 				if (this.hasWon(PLAYER_2))
-				    this.gameOver({ result: 'winner', name: this.opponent.tag, emoji: this.getChip() }, msg);
+				    this.gameOver({ result: 'winner', name: this.opponent.displayName, emoji: this.getChip() }, msg);
 				else if (this.hasWon(PLAYER_1))
 				    this.gameOver({ result: 'winner', name: this.message.member.displayName, emoji: this.getChip() }, msg)
 				else
