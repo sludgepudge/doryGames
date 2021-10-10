@@ -215,7 +215,7 @@ module.exports = class SnakeGame {
         await msg.edit({ embeds: [editEmbed], components: disableButtons(msg.components) })
 
         return await gamesSchema.findOneAndUpdate(
-            { guildID: this.message.guild.id, snakeScores: { $elemMatch: { userID: this.message.member.id } } }, { $max: { 'snakeScores.$.score': this.score } }
+            { userID: this.message.member.id }, { $max: { snakeScore: this.score } }
         )
     }
 
