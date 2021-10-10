@@ -2,6 +2,7 @@ const { MessageEmbed, MessageButton, MessageActionRow } = require('discord.js')
 const choice = { a1: 1, a2: 2, a3: 3, b1: 4, b2: 5, b3: 6, c1: 7, c2: 8, c3: 9 };
 const { disableButtons } = require('../utils/utils');
 const verify = require('../utils/verify')
+const gamesSchema = require('../../../database/schemas/gamesSchema')
 
 const NO_MOVE = 0; 
 const PLAYER_1 = 1;
@@ -163,9 +164,9 @@ module.exports = class TicTacToe {
 
 			if (this.isGameOver()) {
 				if (this.hasWon(PLAYER_2))
-				    this.gameOver({ result: 'winner', name: this.opponent.displayName, emoji: this.getChip() }, msg);
+				    this.gameOver({ result: 'winner', name: this.opponent.displayName, emoji: this.getChip(), id: this.opponent.id }, msg);
 				else if (this.hasWon(PLAYER_1))
-				    this.gameOver({ result: 'winner', name: this.message.member.displayName, emoji: this.getChip() }, msg)
+				    this.gameOver({ result: 'winner', name: this.message.member.displayName, emoji: this.getChip(), id: this.message.member.id }, msg)
 				else
  				   this.gameOver({ result: 'tie' }, msg) 
 			}
@@ -201,7 +202,11 @@ module.exports = class TicTacToe {
         .addField(this.options.embed.overTitle, this.getResultText(result))
 
 
-		return msg.edit({ embeds: [Embed], components: disableButtons(msg.components) })
+		msg.edit({ embeds: [Embed], components: disableButtons(msg.components) })
+
+        return await gamesSchema.findOneAndUpdate(
+            { userID: result.id }, { $inc: { tttWins: 1 } }
+        )
     }
 
 	getChip() {

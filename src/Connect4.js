@@ -1,6 +1,7 @@
 const { MessageEmbed, MessageButton, MessageActionRow } = require('discord.js');
 const { disableButtons } = require('../utils/utils')
 const verify = require('../utils/verify')
+const gamesSchema = require('../../../database/schemas/gamesSchema')
  
 const WIDTH = 7;
 const HEIGHT = 6;
@@ -149,8 +150,12 @@ module.exports = class Connect4Game {
         .addField(this.options.embed.statusTitle || 'Status', this.getResultText(result))
         .setFooter(`${this.message.member.displayName} vs ${this.opponent.displayName}`, this.message.guild.iconURL({ dynamic: true }))
         
+        
+        msg.edit({ embeds: [editEmbed], components: disableButtons(msg.components) });
 
-        return msg.edit({ embeds: [editEmbed], components: disableButtons(msg.components) });
+        return await gamesSchema.findOneAndUpdate(
+            { userID: result.id }, { $inc: { connectWins: 1 } }
+        )
     }
 
     
@@ -199,7 +204,7 @@ module.exports = class Connect4Game {
 
 
             if (this.hasWon(placedX, placedY)) {
-                this.gameOver({ result: 'winner', name: btn.user.tag, emoji: this.getChip() }, msg);
+                this.gameOver({ result: 'winner', name: btn.member.displayName, emoji: this.getChip(), id: btn.member.id }, msg);
             }
             else if (this.isBoardFull()) {
                 this.gameOver({ result: 'tie' }, msg);
