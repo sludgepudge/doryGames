@@ -1,6 +1,6 @@
 {
   "name": "dorygames",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "A custom fork od discord-gamecord for use with Dory",
   "main": "index.js",
   "scripts": {
@@ -9,7 +9,7 @@
   "author": "sludge#0001",
   "license": "GPL-3.0",
   "dependencies": {
-    "discord.js": "^13.1.0",
+    "discord.js": "^13.2.0",
     "html-entities": "^2.3.2",
     "node-fetch": "^2.6.1"
   },

@@ -1,5 +1,6 @@
 const { MessageEmbed, MessageButton, MessageActionRow } = require('discord.js')
 const { disableButtons } = require('../utils/utils')
+const gamesSchema = require('../../../database/gamesSchema')
 
 const WIDTH = 15;
 const HEIGHT = 10;
@@ -211,7 +212,11 @@ module.exports = class SnakeGame {
         .setDescription(text + '\n\n' + this.getGameBoard())
         .setFooter(this.message.member.displayName, this.message.member.displayAvatarURL({ dynamic: true }))
 
-        return await msg.edit({ embeds: [editEmbed], components: disableButtons(msg.components) })
+        await msg.edit({ embeds: [editEmbed], components: disableButtons(msg.components) })
+
+        return await gamesSchema.findOneAndUpdate(
+            { guildID: this.message.guild.id, snakeScores: { $elemMatch: { userID: this.message.member.id } } }, { $set: { 'snakeScores.$.score': this.score } }
+        )
     }
 
 
