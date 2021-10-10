@@ -1,6 +1,7 @@
 const { MessageEmbed, MessageButton, MessageActionRow, MessageAttachment } = require('discord.js')
 const { disableButtons, move, isInsideBlock, oppDirection, posEqual } = require('../utils/utils')
 const chars = '0123456789abcdefghijklmnopqrstuvwxyz';
+const gamesSchema = require('../../../database/schemas/gamesSchema')
 
 const WIDTH = 4;
 const HEIGHT = 4;
@@ -165,6 +166,10 @@ module.exports = class TwoZeroFourEight {
         .setFooter(this.message.member.displayName, this.message.member.displayAvatarURL({ dynamic: true }))
 
         msg.edit({ embeds: [editEmbed], components: disableButtons(msg.components), files: [this.getImage()], attachments: [] })
+
+        await gamesSchema.findOneAndUpdate(
+            { userID: this.message.member.id }, { $max: { twentyScore: this.score } }
+        )
     }
 
 
@@ -179,6 +184,10 @@ module.exports = class TwoZeroFourEight {
         .setFooter(this.message.member.displayName, this.message.member.displayAvatarURL({ dynamic: true }))
 
         msg.edit({ embeds: [editEmbed], components: disableButtons(msg.components), files: [this.getImage()], attachments: [] })
+
+        await gamesSchema.findOneAndUpdate(
+            { userID: this.message.member.id }, { $max: { twentyScore: this.score } }
+        )
     }
 
 
