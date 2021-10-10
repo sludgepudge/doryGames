@@ -1,6 +1,6 @@
 const { MessageEmbed, MessageButton, MessageActionRow } = require('discord.js')
 const { disableButtons } = require('../utils/utils')
-const gamesSchema = require('../../../database/gamesSchema')
+const gamesSchema = require('../../../database/schemas/gamesSchema')
 
 const WIDTH = 15;
 const HEIGHT = 10;
@@ -215,7 +215,7 @@ module.exports = class SnakeGame {
         await msg.edit({ embeds: [editEmbed], components: disableButtons(msg.components) })
 
         return await gamesSchema.findOneAndUpdate(
-            { guildID: this.message.guild.id, snakeScores: { $elemMatch: { userID: this.message.member.id } } }, { $set: { 'snakeScores.$.score': this.score } }
+            { guildID: this.message.guild.id, snakeScores: { $elemMatch: { userID: this.message.member.id } } }, { $max: { 'snakeScores.$.score': this.score } }
         )
     }
 
