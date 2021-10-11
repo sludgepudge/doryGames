@@ -166,10 +166,12 @@ module.exports = class TwoZeroFourEight {
         .setFooter(this.message.member.displayName, this.message.member.displayAvatarURL({ dynamic: true }))
 
         msg.edit({ embeds: [editEmbed], components: disableButtons(msg.components), files: [this.getImage()], attachments: [] })
-
-        await gamesSchema.findOneAndUpdate(
-            { userID: this.message.member.id }, { $max: { twentyScore: this.score } }
-        )
+        let games = await gamesSchema.findOne({ userID: this.message.member.id })
+        if(games.twentyScore < this.score) {
+            await gamesSchema.updateOne(
+                { userID: this.message.member.id }, { $set: { twentyScore: this.score, twentyTime: Date.now() / 1000 } }
+            )
+        }
     }
 
 
@@ -184,10 +186,12 @@ module.exports = class TwoZeroFourEight {
         .setFooter(this.message.member.displayName, this.message.member.displayAvatarURL({ dynamic: true }))
 
         msg.edit({ embeds: [editEmbed], components: disableButtons(msg.components), files: [this.getImage()], attachments: [] })
-
-        await gamesSchema.findOneAndUpdate(
-            { userID: this.message.member.id }, { $max: { twentyScore: this.score } }
-        )
+        let games = await gamesSchema.findOne({ userID: this.message.member.id })
+        if(games.twentyScore < this.score) {
+            await gamesSchema.updateOne(
+                { userID: this.message.member.id }, { $set: { twentyScore: this.score, twentyTime: Date.now() / 1000 } }
+            )
+        }
     }
 
 

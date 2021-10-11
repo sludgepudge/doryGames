@@ -211,12 +211,15 @@ module.exports = class SnakeGame {
         .setTitle(this.options.embed.title)
         .setDescription(text + '\n\n' + this.getGameBoard())
         .setFooter(this.message.member.displayName, this.message.member.displayAvatarURL({ dynamic: true }))
-
-        await msg.edit({ embeds: [editEmbed], components: disableButtons(msg.components) })
-
-        return await gamesSchema.findOneAndUpdate(
-            { userID: this.message.member.id }, { $max: { snakeScore: this.score } }
-        )
+        
+        msg.edit({ embeds: [editEmbed], components: disableButtons(msg.components) });
+        let games = await gamesSchema.findOne({ userID: this.message.member.id })
+        if(games.snakeScore < this.score) {
+            await gamesSchema.updateOne(
+                { userID: this.message.member.id }, { $set: { snakeScore: this.score, snakeTime: Date.now() } }
+            )
+        }
+        return;
     }
 
 
