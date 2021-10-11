@@ -216,7 +216,7 @@ module.exports = class SnakeGame {
         let games = await gamesSchema.findOne({ userID: this.message.member.id })
         if(games.snakeScore < this.score) {
             await gamesSchema.updateOne(
-                { userID: this.message.member.id }, { $set: { snakeScore: this.score, snakeTime: Date.now() } }
+                { userID: this.message.member.id }, { $set: { snakeScore: this.score, snakeTime: Date.now() / 1000 } }
             )
         }
         return;
