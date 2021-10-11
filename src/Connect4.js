@@ -140,7 +140,7 @@ module.exports = class Connect4Game {
     } 
 
 
-    gameOver(result, msg) {
+    async gameOver(result, msg) {
         this.inGame = false;
 
         const editEmbed = new MessageEmbed()
@@ -151,7 +151,7 @@ module.exports = class Connect4Game {
         .setFooter(`${this.message.member.displayName} vs ${this.opponent.displayName}`, this.message.guild.iconURL({ dynamic: true }))
         
         
-        msg.edit({ embeds: [editEmbed], components: disableButtons(msg.components) });
+        await msg.edit({ embeds: [editEmbed], components: disableButtons(msg.components) });
 
         return await gamesSchema.findOneAndUpdate(
             { userID: result.id }, { $inc: { connectWins: 1 } }

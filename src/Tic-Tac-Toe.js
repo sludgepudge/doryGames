@@ -193,7 +193,7 @@ module.exports = class TicTacToe {
     }
 
 
-	gameOver(result, msg) {
+	async gameOver(result, msg) {
         this.inGame = false;
 
         const Embed = new MessageEmbed()
@@ -202,7 +202,7 @@ module.exports = class TicTacToe {
         .addField(this.options.embed.overTitle, this.getResultText(result))
 
 
-		msg.edit({ embeds: [Embed], components: disableButtons(msg.components) })
+		await msg.edit({ embeds: [Embed], components: disableButtons(msg.components) })
 
         return await gamesSchema.findOneAndUpdate(
             { userID: result.id }, { $inc: { tttWins: 1 } }
