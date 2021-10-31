@@ -146,7 +146,7 @@ module.exports = class TicTacToe {
 			}
 
 
-			await btn.deferUpdate();
+			//await btn.deferUpdate();
 			const index = choice[btn.customId.split('_')[0]] - 1;
 			const x = index % 3;
             const y = Math.floor(index / 3);

@@ -104,7 +104,7 @@ module.exports = class Trivia {
 			if (btn.user.id !== this.message.author.id) return btn.reply({ content: this.options.othersMessage.replace('{author}', this.message.author.tag),  ephemeral: true })
 
 			collector.stop();
-			await btn.deferUpdate();
+			//await btn.deferUpdate();
 			for (let y = 0; y < msg.components[0].components.length; y++) {
 				msg.components[0].components[y].style = 'SECONDARY';
 				msg.components[0].components[y].disabled = true;

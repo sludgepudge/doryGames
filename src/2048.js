@@ -113,7 +113,7 @@ module.exports = class TwoZeroFourEight {
                 return btn.reply({ content: this.options.othersMessage.replace('{author}', this.message.member.displayName),  ephemeral: true })
             }
 
-            await btn.deferUpdate();
+            //await btn.deferUpdate();
             let moved = false;
             this.mergedPos = [];
             if (btn.customId === '2048_left') {

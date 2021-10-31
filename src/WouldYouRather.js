@@ -86,7 +86,7 @@ module.exports = class Trivia {
 			if (btn.user.id !== this.message.author.id) return btn.reply({ content: this.options.othersMessage.replace('{author}', this.message.author.tag),  ephemeral: true })
 
 			collector.stop();
-			await btn.deferUpdate();
+			//await btn.deferUpdate();
 
 			const percentage1 = parseInt(data.option1_votes) / (parseInt(data.option1_votes) + parseInt(data.option2_votes)) * 100;
 			const percentage2 = parseInt(data.option2_votes) / (parseInt(data.option1_votes) + parseInt(data.option2_votes)) * 100;

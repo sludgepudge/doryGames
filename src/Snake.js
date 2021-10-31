@@ -233,7 +233,7 @@ module.exports = class SnakeGame {
         collector.on('collect', async btn => {
             if (btn.user.id !== this.message.member.id) return btn.reply({ content: this.options.othersMessage.replace('{author}', this.message.member.displayName),  ephemeral: true })
 
-            await btn.deferUpdate();
+            //await btn.deferUpdate();
             const snakeHead = this.snake[0];
             const nextPos = { x: snakeHead.x, y: snakeHead.y };
 

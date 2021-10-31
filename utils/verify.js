@@ -32,7 +32,7 @@ async function verify(options) {
         await interaction.on('collect', async (btn) => {
             if (btn.user.id !== opponent.id) return btn.reply({ content: options.othersMessage.replace('{author}', opponent.tag),  ephemeral: true })
     
-            await btn.deferUpdate();
+            //await btn.deferUpdate();
             interaction.stop(btn.customId)
         });
     

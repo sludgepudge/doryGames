@@ -175,7 +175,7 @@ module.exports = class Connect4Game {
             if (btn.user.id !== turn) {
 				return btn.reply({ content: this.options.waitMessage,  ephemeral: true })
 			}
-            await btn.deferUpdate();
+            //await btn.deferUpdate();
 
 
             const id = btn.customId.split('_')[0];
