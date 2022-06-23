@@ -11,7 +11,7 @@ module.exports = class Trivia {
 
 
 		if (!options.embed) options.embed = {};
-		if (typeof options.embed !== 'object') throw new TypeError('INVALID_EMBED_OBJECT: Embed arguement must be an object.')
+		if (typeof options.embed !== 'object') throw new TypeError('INVALID_EMBED_OBJECT: Embed argument must be an object.')
 		if (!options.embed.title) options.embed.title = 'Would You Rather';
 		if (typeof options.embed.title !== 'string')  throw new TypeError('INVALID_TITLE: Embed Title must be a string.')
 		if (!options.embed.color) options.embed.color = '#5865F2';
